@@ -30,6 +30,11 @@ class AccountTests(APITestCase):
         response = self.client.post('/domains/', {'url': 'https://habrahabr.ru'})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
+        response_json = response.json()
+        id = response_json['id']
+        response = self.client.put('/domains/{id}'.format(id=id), {'url': 'https://bash.im'})
+        self.assertEqual(response.status_code, status.HTTP_301_MOVED_PERMANENTLY)
+
         response = self.client.post('/domains/', {'url': 'http://habrahabr.ru'})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
