@@ -9,7 +9,7 @@ class AccountTests(APITestCase):
     def setUp(self):
         self.client = APIClient()
 
-    def put(self):
+    def put_case(self):
         domain = Domain(url='https://dou.ua')
         domain.save()
 
@@ -26,7 +26,7 @@ class AccountTests(APITestCase):
         response = self.client.post('/domains/', {'url': 'https://habrahabr.ru'})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-        self.put()
+        self.put_case()
 
     def test_permission_admin(self):
         admin = User(username='admin', password='1qa2ws3ed', is_staff=True, is_superuser=True)
@@ -36,7 +36,7 @@ class AccountTests(APITestCase):
         response = self.client.post('/domains/', {'url': 'https://habrahabr.ru'})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-        self.put()
+        self.put_case()
 
 
     def test_permission_admin3(self):
