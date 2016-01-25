@@ -32,3 +32,9 @@ class AccountTests(APITestCase):
 
         response = self.client.post('/domains/', {'url': 'http://habrahabr.ru'})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        response = self.client.post('/domains/', {'url': ''})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        response = self.client.post('/domains/', {'url': 'noturl'})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
