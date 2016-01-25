@@ -13,6 +13,9 @@ class DomainSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError("Response code is not 200")
         except ConnectionError as e:
             raise serializers.ValidationError("Connection error")
+        except:
+            raise serializers.ValidationError("Error with requests")
+
 
         return url
 
